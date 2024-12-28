@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gunsai Public Services Agency</title>
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #3498DB;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            flex-direction: column;
+        }
+
+        .top-compartment {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #3498DB; /* Matching the entire menu color */
+        }
+
+        .left-buttons,
+        .right-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar input {
+            width: 180px; /* Made narrower */
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .top-compartment a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+        }
+
+        .language-menu {
+            background-color: #1071b3;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .language-menu:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .logo-compartment {
+            background-color: white;
+            padding: 10px 20px;
+            text-align: center;
+            color: #3498DB;
+            width: auto;
+            max-width: 900px; /* Adjust the maximum width to make it narrower */
+            margin: 0 auto; /* Centers the logo compartment */
+        }
+
+        .logo img {
+            height: 250px; /* Adjust the logo size */
+            width: 250px;
+        }
+
+        .logo h1 {
+            margin-top: 5px;
+            font-size: 20px; /* Adjust the font size */
+        }
+
+        .menu-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3498DB;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+
+        .menu-text {
+            font-size: 16px;
+        }
+
+        .menu-icon {
+            display: inline-block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            position: relative;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon::before {
+            top: -8px;
+        }
+
+        .menu-icon::after {
+            top: 8px;
+        }
+
+        .slide-menu {
+            position: fixed;
+            top: 0;
+            left: -400px; /* Off-screen position further */
+            width: 300px;
+            height: 100%;
+            background-color: #1071b3; /* Changeable background color */
+            color: white;
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .slide-menu.open {
+            left: 0;
+        }
+
+        .slide-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .slide-menu ul li {
+            margin: 15px 0;
+        }
+
+        .slide-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .slide-menu ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            color: white;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        nav {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            color: #004680;
+        }
+
+        .hero {
+            background-color: #3498DB;
+            padding: 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h2 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+            text-decoration: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            text-decoration: none;
+            color: #3498DB;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card img {
+            width: 50px; /* Uniform size */
+            height: 50px;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-compartment {
+            background-color: #3498DB; /* Changeable background color */
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-compartment .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .contact-compartment .contact-item i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-compartment">
+            <div class="left-buttons">
+                <a href="https://fsshadow2023.github.io/gpsa-homepage-ru.ga.gov/" title="Home"><i class="fas fa-home"></i></a>
+                <a href="https://fsshadow2023.github.io/gpsa-locations-ru.ga.gov/" title="Location"><i class="fas fa-map-marker-alt"></i></a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="right-menu">
+                <div class="language-menu" id="languageMenu">
+                    RU
+                    <div class="dropdown">
+                        <a href="https://fsshadow2023.github.io/gpsa-vehicles-ru.ga.gov/" onclick="changeLanguage('RU')">RU</a>
+                        <a href="https://fsshadow2023.github.io/gpsa-vehicles-en.ga.gov/" onclick="changeLanguage('EN')">EN</a>
+                        <a href="https://fsshadow2023.github.io/gpsa-vehicles-de.ga.gov/" onclick="changeLanguage('DE')">DE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="logo-compartment">
+        <div class="logo">
+            <a href="https://ibb.co/cXhNVpB"><img src="https://i.ibb.co/R4TCdMF/Picsart-24-12-26-13-56-19-531.png" alt="Picsart-24-12-26-13-56-19-531" border="0"></a><br /><a target='_blank' href='https://ru.imgbb.com/'></a>
+            <h1>Gunsai Public Services Agency</h1>
+        </div>
+    </div>
+
+    <div class="menu-container" onclick="toggleMenu()">
+        <span class="menu-text">Меню</span>
+        <div class="menu-icon"></div>
+    </div>
+
+    <div class="slide-menu" id="slideMenu">
+        <button class="close-menu" onclick="toggleMenu()">&times;</button>
+        <ul>
+            <li><a href="https://fsshadow2023.github.io/gpsa-homepage-ru.ga.gov/">Домой</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-about-ru.ga.gov/">О нас</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-homepage-ru.ga.gov/">Наши услуги</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-news-ru.ga.gov/">Последние новости</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-locations-ru.ga.gov/">Связь с нами</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-faq-ru.ga.gov/">FAQ</a></li>
+        </ul>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="https://fsshadow2023.github.io/gpsa-homepage-ru.ga.gov/">Услуги</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-news-ru.ga.gov/">Новости</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-locations-ru.ga.gov/">Связь с нами</a></li>
+            <li><a href="https://fsshadow2023.github.io/gpsa-faq-ru.ga.gov/">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h2>Добро пожаловать на официальный сайт Агентства Публичных Услуг Республики Гансай.</h2>
+    </div>
+
+    <div class="container" id="services">
+        <h2>Услуги связанные с транспортными средствами</h2>
+        <br>
+        <h3>Услуги в области регистрации и учёта для транспортных средств</h3>
+        <br>
+        <ul style="list-style-type: circle">
+        <li><i class="fa-solid fa-car" style="color: #3498DB;"></i> <a href="https://www.autozone.com/vin-decoder">Идентификация транспорного средства при помощи VIN номера</a></li>
+        <li><i class="fa-solid fa-file-invoice" style="color: #3498DB;"></i> <a href="https://docs.google.com/forms/d/1UjXHY11CDtSGw-miNSycPNh9GQl-XFt9hKr_EjTP-qY/edit">Получение паспорта транспорного средства (ПТС)</a></li>
+        <li><i class="fa-solid fa-file-invoice" style="color: #3498DB;"></i> <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJe0c9uKf6gh1U-kaJpPjjVq9WjAOsBhqmbtQzIxDX2dGE6g/viewform?usp=dialog">Получение полиса страхования для транспортного средства</a></li>
+        <li><i class="fa-solid fa-file-invoice" style="color: #3498DB;"></i> <a href="https://docs.google.com/forms/d/e/1FAIpQLScOI55i5hyLKdm6I8Jl4xXmNblgFcWOYZGRsnt16JoXAtqmyw/viewform?usp=dialog">Получение номерных знаков</a></li>
+        </ul>
+        <br>
+        <h3>Изменение данных в государственном учёте для транспортных средств</h3>
+        <br>
+        <ul style="list-style-type: circle">
+        <li><i class="fa-solid fa-file-invoice" style="color: #3498DB;"></i> <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6JywFdSE8d1eYYMgw8cPEWlsf-4Obha86tZp-6szB6IxawA/viewform?usp=dialog">Редактирование данных в паспорте транспортного средства (ПТС)</a></li>
+        <li><i class="fa-solid fa-file-invoice" style="color: #3498DB;"></i> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfU7QPM63g29qbAZ6f9YtdIdCTQB8PU-DMwEW1JQALRai58Mg/viewform?usp=dialog">Редактирование данных в полисе страхования для транспортного средства</a></li>
+        <li><i class="fa-solid fa-file-invoice" style="color: #3498DB;"></i> <a href="https://docs.google.com/forms/d/e/1FAIpQLSepdLnkwZKSt15vtthfoTLRz9bA17GAiR4KTNE0aqzMbbWKKA/viewform?usp=dialog">Перевыдача номерных знаков</a></li>
+        </ul>
+        <br>
+        <h3>Услуги в области информирования по услугам для транспортных средств</h3>
+        <br>
+        <ul style="list-style-type: circle">
+        <li><i class="fa-solid fa-info" style="color: #3498DB;"></i> <a href="https://fsshadow2023.github.io/gpsa-vehicles-pts-info-ru.ga.gov/">Информация по получению паспорта транспортного средства (ПТС)</a></li>
+        <li><i class="fa-solid fa-info" style="color: #3498DB;"></i> <a href="https://fsshadow2023.github.io/gpsa-vehicles-number-plates-info-ru.ga.gov/">Информация по номерным знакам</a></li>
+        <li><i class="fa-solid fa-info" style="color: #3498DB;"></i> <a href="https://fsshadow2023.github.io/gpsa-vehicles-prices-info-ru.ga.gov/">Информация по тарифам за услуги для транспортных средств</a></li>
+        </ul>
+    </div>
+
+    <div class="contact-compartment">
+        <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i><b>Адрес</b></div>
+            <div class="line"><hr width="100%" size="2" color="white"></hr></div>
+            <div class="address">Республика Гансай, Гунсайский р-н, г. Гунсай, ул. Бахлауфштрассе 8</div>
+            <br>
+        <div class="contact-item">
+            <i class="fas fa-phone"></i><b>Номер телефона</b></div>
+            <div class="line"><hr width="100%" size="2" color="white"></hr></div>
+            <div class="phone-number">+24 (0160) 0101-55-0202</div>
+            <br>
+        <div class="contact-item">
+            <i class="fas fa-envelope"></i><b>Адрес электронной почты</b></div>
+            <div class="line"><hr width="100%" size="2" color="white"></hr></div>
+            <div class="email">info@gpsa.ga.gov</div>
+            <br>
+        <div class="contact-item">
+            <i class="fas fa-phone" style="color: #ffffff;"></i><b>Антикоррупция</b></div>
+            <div class="line"><hr width="100%" size="2" color="white"></hr></div>
+            <div class="phone-number">+24 (0160) 1000-11-1804</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Gunsai Public Services Agency.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('slideMenu');
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+            } else {
+                menu.classList.add('open');
+            }
+        }
+
+        function changeLanguage(language) {
+            const languageMenu = document.getElementById('languageMenu');
+            languageMenu.textContent = language;
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
